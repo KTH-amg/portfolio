@@ -1,0 +1,110 @@
+$primary : rgb(231, 53, 83);
+$primary50 : rgb(231, 53, 83, 0.5);
+$primary_light: #EE8A9B;
+
+@mixin mask($img) {
+  mask-image: url("./" + $img);
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  mask-position: 0 0;
+  -webkit-mask-image: url("./" + $img);
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  -webkit-mask-position: 0 0;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes jump1 {
+  0%, 50% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes jump2 {
+  20%, 70% {
+    transform: translateY(0);
+  }
+  45% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes jump3 {
+  40%, 90% {
+    transform: translateY(0);
+  }
+  65% {
+    transform: translateY(-20px);
+  }
+}
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* 초기 로딩 시 스크롤 방지 */
+}
+
+#loading {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  z-index: 10000;
+  transition: opacity 1s ease-out; /* 1초 동안 서서히 투명해지도록 설정 */
+  &.hidden {
+    opacity: 0;
+    pointer-events: none; /* 로딩 창이 사라진 후 클릭 이벤트를 막지 않도록 설정 */
+  }
+  .circle-text {
+    position: absolute;
+    background-image: url('./circle-text.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 360px;
+    height: 360px;
+    animation: rotation linear 10s infinite ;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    &-tae {
+      width: 89px;
+      height: 33px;
+      background-color: $primary;
+      @include mask('logo-tae.svg');
+      transition: 0.3s;
+      margin-right: 1px;
+      animation: jump1 1s infinite;
+    }
+    &-ho {
+      width: 66px;
+      height: 34px;
+      background-color: $primary_light;
+      @include mask('logo-ho.svg');
+      transition: 0.3s;
+      margin-right: 3px;
+      animation: jump2 1s infinite;
+    }
+  }
+}
+#root {
+  display: none;
+}
+
+
+
+
